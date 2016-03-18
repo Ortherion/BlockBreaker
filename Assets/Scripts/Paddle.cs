@@ -9,7 +9,8 @@ public class Paddle : MonoBehaviour
     public Sprite[] paddleSprites;
 
     private Ball ball;
-
+    private bool hasStarted = false;
+    
     void Start()
     {
         ball = GameObject.FindObjectOfType<Ball>();
@@ -18,6 +19,8 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckStarted();
+
         if (!autoPlay)
         {
             MoveWithMouse();
@@ -57,5 +60,17 @@ public class Paddle : MonoBehaviour
     {
         this.GetComponent<SpriteRenderer>().sprite = paddleSprites[spriteIndex];
         Debug.Log(spriteIndex);
+    }
+
+    void CheckStarted()
+    {
+        if (!hasStarted)
+        {
+            LoadSprite(0);
+            if (Input.GetMouseButtonDown(0))
+            {
+                hasStarted = true;
+            }
+        }
     }
 }
